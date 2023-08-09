@@ -3,7 +3,7 @@ import random
 import math
 
 class GeneticAlgorithm():
-    def __init__(self, tamanho_individuo=30, tamanho_populacao=500, n_filhos=2, tamanho_torneio=5, max_iteracoes=10000, prob_cruzamento=0.9, prob_mutacao=0.4, funcao='ackley'):
+    def __init__(self, tamanho_individuo=30, tamanho_populacao=500, n_filhos=2, tamanho_torneio=10, max_iteracoes=10000, prob_cruzamento=0.9, prob_mutacao=0.4, funcao='ackley'):
         self.tamanho_individuo = tamanho_individuo
         self.tamanho_populacao = tamanho_populacao
         self.n_filhos = n_filhos
@@ -58,7 +58,7 @@ class GeneticAlgorithm():
                 elif self.funcao == 'rastrigin':
                     individuo[i] = max(min(individuo[i] * np.random.normal(0, 1), 5.12), -5.12)
                 elif self.funcao == 'schwefel':
-                    individuo[i] = max(min(individuo[i] * np.random.normal(0, 5), 500), -500)
+                    individuo[i] = max(min(individuo[i] * np.random.normal(0, 1), 500), -500)
                 elif self.funcao == 'rosenbrock':
                     individuo[i] = max(min(individuo[i] * np.random.normal(0, 1), 10), -5)
         return individuo

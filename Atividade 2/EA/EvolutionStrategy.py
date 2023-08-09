@@ -3,7 +3,7 @@ import random
 import math
 
 class EvolutionStrategy():
-    def __init__(self, tamanho_individuo=30, tamanho_populacao=500, n_filhos=3500, tamanho_torneio=10, max_iteracoes=10000, prob_cruzamento=0.3, learning_rate=0.1, funcao='ackley'):
+    def __init__(self, tamanho_individuo=30, tamanho_populacao=100, n_filhos=700, tamanho_torneio=10, max_iteracoes=1000, prob_cruzamento=0.1, learning_rate=0.1, selecao_sobreviventes='elitista', funcao='ackley'):
         self.tamanho_individuo = tamanho_individuo
         self.tamanho_populacao = tamanho_populacao
         self.n_filhos = n_filhos
@@ -11,6 +11,7 @@ class EvolutionStrategy():
         self.max_iteracoes = max_iteracoes
         self.prob_cruzamento = prob_cruzamento
         self.learning_rate = learning_rate
+        self.selecao_sobreviventes = selecao_sobreviventes
         self.funcao = funcao
 
         self.populacao = []
@@ -46,7 +47,10 @@ class EvolutionStrategy():
         return fitness
 
     def selecionar_sobreviventes(self, filhos):
-        populacao_total = self.populacao + filhos
+        if self.selecao_sobreviventes == 'elitista':
+            populacao_total = self.populacao + filhos
+        else:
+            populacao_total = filhos
         populacao_ordenada = sorted(populacao_total, key=self.calcular_fitness)
         return populacao_ordenada[:self.tamanho_populacao]
 
